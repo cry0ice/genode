@@ -21,7 +21,7 @@ jobs:
           cache: true
 
       - name: Fetch
-        run:
+        run: |
           rm -rf public/
           mkdir public
           go run . -o public/ sources.txt
