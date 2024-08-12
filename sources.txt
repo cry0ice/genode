@@ -3,6 +3,7 @@ https://cxfxw.com/node/{{date "20060102"}}-v2ray.txt
 https://raw.githubusercontent.com/Pawdroid/Free-servers/main/sub
 http://wzm.api-node.shop/node/{{date "20060102"}}-v2ray.txt
 https://raw.githubusercontent.com/adiwzx/freenode/main/adispeed.txt
+https://raw.githubusercontent.com/peasoft/NoMoreWalls/master/list.txt
 https://proxypool.link/sip002/sub
 https://proxypool.link/ssr/sub
 https://proxypool.link/vmess/sub
