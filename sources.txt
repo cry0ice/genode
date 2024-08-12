@@ -1,0 +1,12 @@
+https://clashgithub.com/wp-content/uploads/rss/{{date "20060102"}}.txt
+https://cxfxw.com/node/{{date "20060102"}}-v2ray.txt
+https://raw.githubusercontent.com/Pawdroid/Free-servers/main/sub
+http://wzm.api-node.shop/node/{{date "20060102"}}-v2ray.txt
+https://raw.githubusercontent.com/adiwzx/freenode/main/adispeed.txt
+https://proxypool.link/sip002/sub
+https://proxypool.link/ssr/sub
+https://proxypool.link/vmess/sub
+https://proxypool.link/trojan/sub
+https://raw.githubusercontent.com/free18/v2ray/main/v2ray.txt
+https://raw.githubusercontent.com/aiboboxx/v2rayfree/main/v2
+https://raw.githubusercontent.com/freefq/free/master/v2
