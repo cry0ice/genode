@@ -21,7 +21,10 @@ jobs:
           cache: true
 
       - name: Fetch
-        run: go run . -o public/ sources.txt
+        run:
+          rm -rf public/
+          mkdir public
+          go run . -o public/ sources.txt
 
       - name: Push
         run: |
