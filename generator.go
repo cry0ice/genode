@@ -67,6 +67,7 @@ func getNodes(set mapset.Set[string], client *req.Client, u string) ([]string, e
 				continue
 			}
 			parsedUrl.Fragment = ""
+			parsedUrl.RawFragment = ""
 			noFragmentUrl := parsedUrl.String()
 
 			if set.ContainsOne(noFragmentUrl) {
