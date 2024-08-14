@@ -50,8 +50,8 @@ func readURLs(name string) ([]string, error) {
 	return urls, scanner.Err()
 }
 
-func getNodes(client *req.Client, url string) ([]string, error) {
-	resp, err := client.R().Get(url)
+func getNodes(set mapset.Set[string], client *req.Client, u string) ([]string, error) {
+	resp, err := client.R().Get(u)
 	if err != nil {
 		return nil, err
 	}
@@ -62,6 +62,17 @@ func getNodes(client *req.Client, url string) ([]string, error) {
 	scanner := bufio.NewScanner(decoder)
 	for scanner.Scan() {
 		if text := scanner.Text(); text != "" {
+			parsedUrl, err := url.Parse(text)
+			if err != nil {
+				continue
+			}
+			parsedUrl.Fragment = ""
+			noFragmentUrl := parsedUrl.String()
+
+			if set.ContainsOne(noFragmentUrl) {
+				continue
+			}
+			set.Add(noFragmentUrl)
 			nodes = append(nodes, text)
 		}
 	}
@@ -69,7 +80,7 @@ func getNodes(client *req.Client, url string) ([]string, error) {
 	return nodes, scanner.Err()
 }
 
-func writeToFile(set mapset.Set[string], outputDir string) error {
+func writeToFile(nodes []string, outputDir string) error {
 	protocolMap := make(map[string]io.Writer)
 
 	allList, err := os.OpenFile(path.Join(outputDir, "all.txt"), os.O_CREATE|os.O_WRONLY, os.ModePerm)
@@ -80,7 +91,7 @@ func writeToFile(set mapset.Set[string], outputDir string) error {
 	allListEncoder := base64.NewEncoder(base64.StdEncoding, allList)
 	defer allListEncoder.Close()
 
-	for node := range set.Iter() {
+	for _, node := range nodes {
 		allListEncoder.Write([]byte(node + "\n"))
 
 		parsedUrl, err := url.Parse(node)

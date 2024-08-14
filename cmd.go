@@ -29,16 +29,19 @@ var root = &cobra.Command{
 		client := req.C().SetUserAgent(userAgent).SetTimeout(5 * time.Second).SetTLSFingerprintSafari().SetProxyURL(proxy)
 		set := mapset.NewSet[string]()
 
+		var nodes []string
+
 		for _, url := range urls {
 			fmt.Println("fetch", url)
-			nodes, err := getNodes(client, url)
+			ns, err := getNodes(set, client, url)
 			if err != nil {
 				fmt.Println(err)
+				continue
 			}
-			set.Append(nodes...)
+			nodes = append(nodes, ns...)
 		}
 
-		return writeToFile(set, outputDir)
+		return writeToFile(nodes, outputDir)
 	},
 }
 
