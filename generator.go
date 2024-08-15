@@ -81,7 +81,7 @@ func getNodes(set mapset.Set[string], client *req.Client, u string) ([]string, e
 	return nodes, scanner.Err()
 }
 
-func writeToFile(nodes []string, outputDir string) error {
+func writeToFile(nodes mapset.Set[string], outputDir string) error {
 	protocolMap := make(map[string]io.Writer)
 
 	allList, err := os.OpenFile(path.Join(outputDir, "all.txt"), os.O_CREATE|os.O_WRONLY, os.ModePerm)
@@ -92,7 +92,7 @@ func writeToFile(nodes []string, outputDir string) error {
 	allListEncoder := base64.NewEncoder(base64.StdEncoding, allList)
 	defer allListEncoder.Close()
 
-	for _, node := range nodes {
+	for node := range nodes.Iter() {
 		allListEncoder.Write([]byte(node + "\n"))
 
 		parsedUrl, err := url.Parse(node)
