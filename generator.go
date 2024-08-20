@@ -62,18 +62,18 @@ func getNodes(set mapset.Set[string], client *req.Client, u string) ([]string, e
 	scanner := bufio.NewScanner(decoder)
 	for scanner.Scan() {
 		if text := scanner.Text(); text != "" {
-			parsedUrl, err := url.Parse(text)
+			parsedURL, err := url.Parse(text)
 			if err != nil {
 				continue
 			}
-			parsedUrl.Fragment = ""
-			parsedUrl.RawFragment = ""
-			noFragmentUrl := parsedUrl.String()
+			parsedURL.Fragment = ""
+			parsedURL.RawFragment = ""
+			noFragmentURL := parsedURL.String()
 
-			if set.ContainsOne(noFragmentUrl) {
+			if set.ContainsOne(noFragmentURL) {
 				continue
 			}
-			set.Add(noFragmentUrl)
+			set.Add(noFragmentURL)
 			nodes = append(nodes, text)
 		}
 	}
