@@ -11,3 +11,8 @@ https://raw.githubusercontent.com/free18/v2ray/main/v2ray.txt
 https://raw.githubusercontent.com/aiboboxx/v2rayfree/main/v2
 https://raw.githubusercontent.com/freefq/free/master/v2
 https://nodefree.githubrowcontent.com/{{date "2006"}}/{{date "01"}}/{{date "20060102"}}.txt
+clear:https://winxraynode.github.io/uploads/{{date "2006"}}/{{date "01"}}/0-{{date "20060102"}}.txt
+clear:https://winxraynode.github.io/uploads/{{date "2006"}}/{{date "01"}}/1-{{date "20060102"}}.txt
+clear:https://winxraynode.github.io/uploads/{{date "2006"}}/{{date "01"}}/2-{{date "20060102"}}.txt
+clear:https://winxraynode.github.io/uploads/{{date "2006"}}/{{date "01"}}/3-{{date "20060102"}}.txt
+clear:https://winxraynode.github.io/uploads/{{date "2006"}}/{{date "01"}}/4-{{date "20060102"}}.txt

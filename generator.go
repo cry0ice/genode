@@ -51,15 +51,28 @@ func readURLs(name string) ([]string, error) {
 }
 
 func getNodes(set mapset.Set[string], client *req.Client, u string) ([]string, error) {
-	resp, err := client.R().Get(u)
-	if err != nil {
-		return nil, err
+	cutted, found := strings.CutPrefix(u, "clear:")
+
+	var reader io.Reader
+	if found {
+		resp, err := client.R().Get(cutted)
+		if err != nil {
+			return nil, err
+		}
+		defer resp.Body.Close()
+		reader = resp.Body
+	} else {
+		resp, err := client.R().Get(u)
+		if err != nil {
+			return nil, err
+		}
+		defer resp.Body.Close()
+		decoder := base64.NewDecoder(base64.StdEncoding, resp.Body)
+		reader = decoder
 	}
-	defer resp.Body.Close()
 
 	var nodes []string
-	decoder := base64.NewDecoder(base64.StdEncoding, resp.Body)
-	scanner := bufio.NewScanner(decoder)
+	scanner := bufio.NewScanner(reader)
 	for scanner.Scan() {
 		if text := scanner.Text(); text != "" {
 			parsedURL, err := url.Parse(text)
