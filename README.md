@@ -8,7 +8,7 @@
 |--------|-------------------------------------------------------------------|
 | All    | https://cdn.jsdelivr.net/gh/cry0ice/genode@main/public/all.txt    |
 | VMess  | https://cdn.jsdelivr.net/gh/cry0ice/genode@main/public/vmess.txt  |
-| VLESS  | https://cdn.jsdelivr.net/gh/cry0ice/genode@main/public/trojan.txt |
+| VLESS  | https://cdn.jsdelivr.net/gh/cry0ice/genode@main/public/vless.txt |
 | Trojan | https://cdn.jsdelivr.net/gh/cry0ice/genode@main/public/trojan.txt |
 | SS     | https://cdn.jsdelivr.net/gh/cry0ice/genode@main/public/ss.txt     |
 | SSR    | https://cdn.jsdelivr.net/gh/cry0ice/genode@main/public/ssr.txt    |
