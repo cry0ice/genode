@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"encoding/base64"
+	"fmt"
 	"io"
 	"net/url"
 	"os"
@@ -75,18 +76,16 @@ func getNodes(set mapset.Set[string], client *req.Client, u string) ([]string, e
 	scanner := bufio.NewScanner(reader)
 	for scanner.Scan() {
 		if text := scanner.Text(); text != "" {
-			parsedURL, err := url.Parse(text)
+			hash, err := hash(text)
 			if err != nil {
+				fmt.Println(err)
 				continue
 			}
-			parsedURL.Fragment = ""
-			parsedURL.RawFragment = ""
-			noFragmentURL := parsedURL.String()
 
-			if set.ContainsOne(noFragmentURL) {
+			if set.ContainsOne(hash) {
 				continue
 			}
-			set.Add(noFragmentURL)
+			set.Add(hash)
 			nodes = append(nodes, text)
 		}
 	}
@@ -108,20 +107,20 @@ func writeToFile(nodes mapset.Set[string], outputDir string) error {
 	for node := range nodes.Iter() {
 		allListEncoder.Write([]byte(node + "\n"))
 
-		parsedUrl, err := url.Parse(node)
+		parsedURL, err := url.Parse(node)
 		if err != nil {
 			continue
 		}
-		writer, ok := protocolMap[parsedUrl.Scheme]
+		writer, ok := protocolMap[parsedURL.Scheme]
 		if !ok {
-			f, err := os.OpenFile(path.Join(outputDir, parsedUrl.Scheme+".txt"), os.O_CREATE|os.O_WRONLY, os.ModePerm)
+			f, err := os.OpenFile(path.Join(outputDir, parsedURL.Scheme+".txt"), os.O_CREATE|os.O_WRONLY, os.ModePerm)
 			if err != nil {
 				continue
 			}
 			defer f.Close()
 			encoder := base64.NewEncoder(base64.StdEncoding, f)
 			defer encoder.Close()
-			protocolMap[parsedUrl.Scheme] = encoder
+			protocolMap[parsedURL.Scheme] = encoder
 			writer = encoder
 		}
 
