@@ -3,13 +3,13 @@ module github.com/cry0ice/genode
 go 1.22.5
 
 require (
+	github.com/Jeffail/gabs v1.4.0
 	github.com/deckarep/golang-set/v2 v2.6.0
 	github.com/imroc/req/v3 v3.43.7
 	github.com/spf13/cobra v1.8.1
 )
 
 require (
-	github.com/Jeffail/gabs v1.4.0 // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/cloudflare/circl v1.3.7 // indirect
 	github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 // indirect
