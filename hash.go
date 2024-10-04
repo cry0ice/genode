@@ -15,7 +15,7 @@ func hash(s string) (string, error) {
 
 	switch u.Scheme {
 	case "vmess":
-		bs, err := base64.StdEncoding.DecodeString(u.Host)
+		bs, err := base64.URLEncoding.DecodeString(u.Host)
 		if err != nil {
 			return "", err
 		}

@@ -15,3 +15,4 @@ https://winxraynode.github.io/uploads/{{date "2006"}}/{{date "01"}}/1-{{date "20
 https://winxraynode.github.io/uploads/{{date "2006"}}/{{date "01"}}/2-{{date "20060102"}}.txt
 https://winxraynode.github.io/uploads/{{date "2006"}}/{{date "01"}}/3-{{date "20060102"}}.txt
 https://winxraynode.github.io/uploads/{{date "2006"}}/{{date "01"}}/4-{{date "20060102"}}.txt
+https://raw.githubusercontent.com/ts-sf/fly/refs/heads/main/v2
