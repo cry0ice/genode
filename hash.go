@@ -24,7 +24,7 @@ func hash(s string) (string, error) {
 			return "", err
 		}
 		jsonObj.Set("", "ps")
-		return jsonObj.String(), nil
+		return "vmess://" + jsonObj.String(), nil
 	default:
 		u.Fragment = ""
 		return u.String(), nil
