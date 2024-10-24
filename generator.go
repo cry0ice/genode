@@ -2,12 +2,9 @@ package main
 
 import (
 	"bufio"
-	"bytes"
 	"encoding/base64"
 	"io"
-	"log"
 	"os"
-	"regexp"
 	"strings"
 	"text/template"
 	"time"
@@ -15,8 +12,6 @@ import (
 	mapset "github.com/deckarep/golang-set/v2"
 	"github.com/imroc/req/v3"
 )
-
-const checkBase64Pattern = "^[a-zA-Z0-9+/]*={0,3}$"
 
 func formatDate(layout string) string {
 	return time.Now().Format(layout)
@@ -63,33 +58,23 @@ func getNodes(set mapset.Set[string], chNodes chan string, client *req.Client, u
 	if err != nil {
 		return err
 	}
-	isBase64, err := regexp.Match(checkBase64Pattern, fullBytes)
+	clearBytes := make([]byte, base64.StdEncoding.DecodedLen(len(fullBytes)))
+	_, err = base64.StdEncoding.Decode(clearBytes, fullBytes)
 	if err != nil {
-		return err
+		clearBytes = fullBytes
 	}
 
-	buffer := bytes.NewBuffer(fullBytes)
-	var reader io.Reader
-	if isBase64 {
-		reader = base64.NewDecoder(base64.StdEncoding, buffer)
-	} else {
-		reader = buffer
-	}
-
-	scanner := bufio.NewScanner(reader)
-	for scanner.Scan() {
-		text := scanner.Text()
-		hashed, err := hash(text)
+	splited := strings.Split(strings.ReplaceAll(string(clearBytes), "\r\n", "\n"), "\n")
+	for _, link := range splited {
+		hash, err := hash(link)
 		if err != nil {
-			log.Println(err)
 			continue
 		}
-		if set.ContainsOne(hashed) {
+		if set.ContainsOne(hash) {
 			continue
 		}
-		set.Add(hashed)
-		chNodes <- text
+		set.Add(hash)
+		chNodes <- link
 	}
-
-	return scanner.Err()
+	return nil
 }
