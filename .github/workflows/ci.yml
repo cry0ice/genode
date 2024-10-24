@@ -22,19 +22,13 @@ jobs:
 
       - name: Fetch
         run: |
-          rm -rf public/
-          mkdir public
-          go run . -o public/ sources.txt
+          mkdir -p dist
+          go run . -output dist/sub.txt sources.txt
 
-      - name: Push
-        run: |
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add public/
-          git commit -m "Updated at $(date '+%Y-%m-%d %H:%M:%S')"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
+      - name: Upload
+        uses: crazy-max/ghaction-github-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          target_branch: sub
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
